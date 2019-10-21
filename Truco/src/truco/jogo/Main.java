@@ -27,19 +27,17 @@ public class Main {
     
     3 - Inteligência artificial básica (joga as cartas na ordem que foram dadas)
     4 - Interface Gráfica simples
-    5 - Salvamento de dados em arquivo criptografado. Isso inclui estilos de jogo.
-    6 - Criptografia desses dados.
+    5 - Salvamento de dados em JDBC.
     
-    7 - Inteligência artificial complexa, usando-se dos dados salvos.
-    8 - Interface gráfica complexa e refinada.
+    6 - Inteligência artificial complexa, usando-se dos dados salvos.
+    7 - Interface gráfica complexa e refinada.
     
-    9 - Explicação via label de como foi programado, para fins de aprendizado.
+    8 - Explicação via label de como foi programado, para fins de aprendizado.
         ---Se der tempo---
-        10 - Salvamento de dados em SQL
-        11 - Dificuldade de IAs.
-        12 - Afinidade entre jogadores.
-        13 - Possibilidade de jogar com apenas dois jogadores
-        14 - Mudança do estilo das cartas/fundo/tabuleiro.
+        9 - Dificuldade de IAs.
+        10 - Afinidade entre jogadores.
+        11 - Possibilidade de jogar com apenas dois jogadores
+        12 - Mudança do estilo das cartas/fundo/tabuleiro.
      */
     //Converte o vetor de cartas na mão em uma única string
     public static String cartinhas(Carta[] carta) {
@@ -55,7 +53,7 @@ public class Main {
         /* Índice que determina qual carta da mão será jogada. 
         Ele recebe o valor digitado pelo jogador -1*/
 
- /*Exibe a mão e as opções ao jogador. Se for a primeira rodada,
+        /*Exibe a mão e as opções ao jogador. Se for a primeira rodada,
         a opção mandar de coberta não aparece */
         System.out.println("Jogador " + (atual + 1) + ":\n" + cartinhas(mão[atual]));
         if (cont == 0) {
@@ -69,7 +67,7 @@ public class Main {
         /*Se o jogador digita 4, isso significa que ele pediu truco. Nesse caso,
         a opção de jogar a carta reaparece, dessa vez sem a opção de trucar*/
         if (index == 3) {
-            if (!(atual % 2 == game.getTtruco())) {
+            if (!(atual % 2 == game.getTruco())) {
                 if (atual == 0) {
                     System.out.println("Jogador " + 4 + " deseja aceitar o truco? (1 para aceitar, 5 para recusar)");
                 } else {
@@ -116,8 +114,8 @@ public class Main {
      * @throws truco.regras.RuleException
      */
     public static void main(String[] args) throws RuleException{
-        
-        Jogo game = new Jogo(Constantes.PAULISTA);
+        byte []dif ={1,2,1};
+        Jogo game = new Jogo(Constantes.PAULISTA,(byte)4,dif);
         Carta[][] mão = new Carta[4][];
         Scanner scan = new Scanner(System.in);
         int sair = 1;
@@ -129,10 +127,9 @@ public class Main {
             nessa posição.
              */
             int cont = 0; // determina qual é a rodada jogada. Se for a primeira, cartas de coberta não podem ser jogadas.
-            if (game.getRegras().getTipo() == Constantes.PAULISTA) {
+            if (game.getRegras().getTipo() == Constantes.PAULISTA) 
                 System.out.println("A vira é: " + game.getVira().getIMAGEM());
-            }
-
+            
             while (true) {
                 //Vetor mão recebe a mão que o jogo distribuiu aos jogadores
                 for (int i = 0; i < game.getPlayers().length; i++) {

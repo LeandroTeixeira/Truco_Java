@@ -44,12 +44,14 @@ public class Jogo {
     }
 
     private void inicializar(byte[] dificuldade/*, byte IA*/) throws RuleException {
-        byte cont;
+        
         if ((dificuldade.length != regras.getJogadores() - 1) /*|| IA != regras.getJogadores() - 1*/) {
             throw new RuleException(TipoErro.JOGADOR);
         }
 
-     /*   for (cont = 0; cont < IA; cont++) {
+     /*   
+        byte cont;
+        for (cont = 0; cont < IA; cont++) {
             player[cont] = new IA(cont, dificuldade[cont]);
         }
 
@@ -57,12 +59,10 @@ public class Jogo {
             player[cont] = new Jogador(cont);
         }*/
      
-     player[0]=new Jogador((byte)0);
-     for(byte i=1;i<player.length;i++){
-         player[i]=new IA(i,dificuldade[i-1]);
-     }
+        player[0]=new Jogador((byte)0);
+        for(byte i=1;i<player.length;i++)
+            player[i]=new IA(i,dificuldade[i-1]);
      
-        
         //Cada jogador possui um parceiro e dois oponentes, sendo o primeiro o jogador que joga depois e só então o que joga antes
         
         player[0].setParceiro(player[2]);

@@ -23,8 +23,6 @@ public class Jogador {
     private byte pontos; // Pontuaçao da partida
     private final byte INDICE;
     
-   
-    
     private Jogador[]oponentes;
     private Jogador parceiro;
     
@@ -93,10 +91,7 @@ public class Jogador {
         mão=Constantes.removeNull(mão);
     }
 
-
-    
-    
-        public void novaMão(){
+    public void novaMão(){
         mão=null;
         mão=new Carta[3];
         System.gc();

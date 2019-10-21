@@ -7,7 +7,6 @@ package truco.baralho;
 
 import java.util.Random;
 import truco.util.Constantes;
-import truco.util.Constantes.Ordenacao;
 
 /**
  *
@@ -19,12 +18,6 @@ public class Baralho {
     private byte cont;//Define quantas cartas ainda restam no baralho
 
     public Baralho() {
-        this.cont = 40;
-        baralho = new Carta[cont];
-        inicializar();
-    }
-
-    public Baralho(Ordenacao ord) {
         this.cont = 40;
         baralho = new Carta[cont];
         inicializar();
@@ -98,18 +91,14 @@ public class Baralho {
                     carta = "Valete";
                     valor = Constantes.VVALETE;
                     break;
-
             }
-
             /*Como definido em truco.util.Constantes, toda carta possui seu 
             simbolo dado por um número de 2 algarismos. O primeiro se refere
             a seu naipe enquanto o segundo à carta em si. Esses valores são 
             utilizados para definir o ícone de cada uma
              */
-            baralho[i - 10] = new Carta(valor, i, /*String.valueOf(i),*/ carta + " de " + naipe);
-
+            baralho[i - 10] = new Carta(valor, i, carta + " de " + naipe);
         }
-
     }
 
     /**
@@ -143,8 +132,6 @@ public class Baralho {
         return entregue;
     }
 
-    public Carta[] getBaralho() {return baralho;}
-
     /**
      * Função designada para distribuir uma quantidade de cartas, geralmente
      * múltiplo de 3, entre os jogadores.
@@ -155,11 +142,13 @@ public class Baralho {
     public Carta[] distribuir(int qtd) {
         Carta[] distribuidas = new Carta[qtd];
         for (int i = 0; i < qtd; i++) {
-            distribuidas[i] = entregarCarta();
+            distribuidas[i] = this.entregarCarta();
         }
         return distribuidas;
     }
 
     public void resetContador() {cont = 40;}
+
+    public Carta[] getBaralho() {return baralho;}
 
 }

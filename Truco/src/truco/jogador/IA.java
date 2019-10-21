@@ -6,7 +6,6 @@
 package truco.jogador;
 
 import truco.baralho.Carta;
-import truco.util.Sorting;
 /**
  *
  * @author PC
@@ -29,7 +28,7 @@ public class IA extends Jogador{
     @Override
     public void setMão(Carta[] mão) {
         this.mão = mão;
-        ordenarMão();
+      //  ordenarMão();
     }
 
     /**
@@ -60,6 +59,6 @@ public class IA extends Jogador{
             return mão[0];
     }
 
-    private void ordenarMão() {mão=(Carta[]) Sorting.InsertionSort(mão);}
+    //private void ordenarMão() {mão=(Carta[]) Sorting.InsertionSort(mão);}
     
 }

@@ -45,11 +45,8 @@ public class RuleSet {
      * @throws RuleException 
      */
     public RuleSet(byte tipo, byte jogadores) throws RuleException {
-        if (tipo <= Constantes.MINEIRO && tipo >= Constantes.PAULISTA) {
-            this.tipo = tipo;
-        } else {
-            throw new RuleException(TipoErro.TIPO);
-        }
+        if (tipo == Constantes.MINEIRO || tipo == Constantes.PAULISTA || tipo == Constantes.GOIANO)this.tipo = tipo;
+        else throw new RuleException(TipoErro.TIPO);
         
       //Variáveis finais
         this.deck = new Baralho();
@@ -62,57 +59,40 @@ public class RuleSet {
         this.setPontosPorRodada();
         this.setMaofinal();
     }
-
+    
+    //No caso do truco paulista, além das cartas distribuídas aos jogadores, há também a carta virada. 
     private void setCartasPorRodada() {
         cartasPorRodada = (byte) (3 * this.jogadores);
-
-        //No caso do truco paulista, além das cartas distribuídas aos jogadores, há também a carta virada. 
-        if (this.tipo == Constantes.PAULISTA) {
-            ++cartasPorRodada;
-        }
+        if (this.tipo == Constantes.PAULISTA) ++cartasPorRodada;
     }
 
     /**
      * Define os pontos por rodada, sendo 1 no caso de paulista ou goiano e 
      * 2 no caso de mineiro.
      */
-    public final void setPontosPorRodada(){
-        pontosPorRodada=1;
-        if (this.tipo == Constantes.MINEIRO) {
-            pontosPorRodada *= 2;
-        }
+    public void setPontosPorRodada(){
+        this.pontosPorRodada = 1;
+        if (this.tipo == Constantes.MINEIRO) this.pontosPorRodada *= 2;
     }
 
-    
     private void setMaofinal() {
-        maofinal=11;
-        if (this.tipo == Constantes.MINEIRO) {
-            maofinal-=1;
-        }
+        this.maofinal = 11;
+        if (this.tipo == Constantes.MINEIRO) this.maofinal = 10;
     }
     
-    public byte getMaofinal() {
-        return maofinal;
-    }
-
-    public void setMaofinal(byte maofinal) {
-        this.maofinal = maofinal;
-    }
+    public byte getMaofinal() {return maofinal;}
 
     /**
-     * 
+     * Retorna um vetor de cartas com as manilhas definidas
      * @param cartas
      * @return 
      */
     private Carta[] setManilhas(Carta[] cartas) {
         Carta[] carta = cartas;
         //Se o numero de cartas for par, o truco é mineiro ou goiano, logo, manilhas fixas
-        if (cartasPorRodada % 2 == 0) {
-            this.manilhaFixa(cartas);
-        } //Se o numero for impar, o truco é paulista, logo, manilhas variáveis
-        else {
-            this.manilhaVariavel(cartas);
-        }
+        if (cartasPorRodada % 2 == 0) this.manilhaFixa(cartas); 
+        //Se o numero for impar, o truco é paulista, logo, manilhas variáveis
+        else this.manilhaVariavel(cartas);
 
         return carta;
     }
@@ -147,7 +127,7 @@ public class RuleSet {
     }
     
     /**
-     * Define as manilhas variáveis, usadas no truco paulista. As cartas geralmente 
+     * Define as manilhas variáveis, usadas no truco paulista. As cartas 
      * são distribuídas em ordem crescente no vetor, fazendo a vira ser a última. 
      * Dela extraímos o símbolo pelo resto da divisão por 10
      * 
@@ -155,52 +135,45 @@ public class RuleSet {
      */
     
     private void manilhaVariavel(Carta[] carta){
-            resetManilhas(deck.getBaralho());//faz as manilhas da última rodada voltarem a ser cartas comuns
-            vira = carta[carta.length - 1];
-            //As manilhas são as do número seguinte às da vira
-            byte valor = (byte) (vira.getSIMBOLO() % 10);
-            byte valorCarta;
-            Smanilha=(byte) (valor+1);
-            for (Carta carta1 : carta) {
-                //Sabemos que uma carta é manilha se seu número das unidades for maior que o da vira em 1
-                valorCarta = (byte) (carta1.getSIMBOLO() % 10);
-                 if (valorCarta == (valor + 1)%10) {
-                    /* Obtemos o naipe da carta através da substração de seu valor com o resto de sua divisão por 10.
-                    Nota que se a vira for a dama (Simbolo terminado em 9), a manilha é o rei, símbolo terminado em 0,
-                    logo, é necessário pegar o resto por 10 duas vezes.
-                    */
-                    switch (carta1.getSIMBOLO() - valorCarta) {
-                        case 10:
-                            carta1.setValor(Constantes.VPAUS);
-                            
-                            break;
-                        case 20:
-                            carta1.setValor(Constantes.VESPADAS);
-                            
-                            break;
-                        case 30:
-                            carta1.setValor(Constantes.VCOPAS);
-                            
-                            break;
-                        case 40:
-                            carta1.setValor(Constantes.VOUROS);
-                            break;
-                    }
+        resetManilhas(deck.getBaralho());//faz as manilhas da última rodada voltarem a ser cartas comuns
+        vira = carta[carta.length - 1];
+        //As manilhas são as do número seguinte às da vira
+        byte valor = (byte) (vira.getSIMBOLO() % 10);
+        byte valorCarta;
+        Smanilha=(byte) (valor+1);
+        for (Carta carta1 : carta) {
+            //Sabemos que uma carta é manilha se seu número das unidades for maior que o da vira em 1
+            valorCarta = (byte) (carta1.getSIMBOLO() % 10);
+            if (valorCarta == (valor + 1)%10) {
+                /* Obtemos o naipe da carta através da substração de seu valor com o resto de sua divisão por 10.
+                Nota que se a vira for a dama (Simbolo terminado em 9), a manilha é o rei, símbolo terminado em 0,
+                logo, é necessário pegar o resto por 10 duas vezes.
+                */
+                switch (carta1.getSIMBOLO() - valorCarta) {
+                    case 10:
+                        carta1.setValor(Constantes.VPAUS);
+                        break;
+                    case 20:
+                        carta1.setValor(Constantes.VESPADAS);
+                        break;
+                    case 30:
+                        carta1.setValor(Constantes.VCOPAS);
+                        break;
+                    case 40:
+                        carta1.setValor(Constantes.VOUROS);
+                        break;
                 }
             }
+        }
     }
-    
-    
-    
-    
-    
+        
     /**
      * Embaralha o deck, distribui as cartas e define as manilhas (se houverem)
      * @return Cartas - Vetor com 3 cartas para cada jogador e a vira se for truco paulista.
      */
     public Carta[] distribuirMão() {
         deck.embaralhar();
-        Carta cartas[]= deck.distribuir(cartasPorRodada);
+        Carta cartas[] = deck.distribuir(cartasPorRodada);
         cartas = setManilhas(cartas);
         return cartas;
     }
@@ -253,7 +226,6 @@ public class RuleSet {
      * 
      */
     private void resetManilhas(Carta[] cartas) {
-        //
         Carta[] carta = cartas;
         for (byte i=0;i<cartas.length;i++){
             switch(carta[i].getValor()-10){
@@ -266,50 +238,18 @@ public class RuleSet {
         }
     }
 
-    
-    public Carta getVira() {
-        return vira;
-    }
+    public Carta getVira() {return vira;}
 
-    public void setVira(Carta vira) {
-        this.vira = vira;
-    }
+    public byte getCartasPorRodada() {return cartasPorRodada;}
 
+    public byte getPontosPorRodada() {return pontosPorRodada;}
 
-    public byte getCartasPorRodada() {
-        return cartasPorRodada;
-    }
+    public byte getJogadores() {return jogadores;}
 
-    public void setCartasPorRodada(byte cartasPorRodada) {
-        this.cartasPorRodada = cartasPorRodada;
-    }
+    public byte getTipo() {return tipo;}
 
-    public byte getPontosPorRodada() {
-        return pontosPorRodada;
-    }
+    public Baralho getDeck() {return deck;}
 
-    public void setPontosPorRodada(byte pontosPorRodada) {
-        this.pontosPorRodada = pontosPorRodada;
-    }
-
-    public byte getJogadores() {
-        return jogadores;
-    }
-
-    public byte getTipo() {
-        return tipo;
-    }
-
-    public Baralho getDeck() {
-        return deck;
-    }
-
-    public byte getSmanilha() {
-        return Smanilha;
-    }
-
-    public void setSmanilha(byte Smanilha) {
-        this.Smanilha = Smanilha;
-    }
+    public byte getSmanilha() {return Smanilha;}
 
 }
