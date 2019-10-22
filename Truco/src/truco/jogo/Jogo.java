@@ -108,9 +108,11 @@ public class Jogo {
 
     /**
      * Determina se a rodada determinou o vencedor da mão; true se sim, false se
-     * não
+     * não. 
+     * 
+     * @return Verdadeiro caso alguém tenha vencido nessa rodada, falso caso contrário
      */
-    public void determinarVencedor() {
+    public boolean determinarVencedor() {
         byte jogada[] = new byte[player.length];
         byte tv = -1;
         byte v = -1, v1 = -1;
@@ -119,7 +121,8 @@ public class Jogo {
 
         for (int i = 0; i < player.length; i++) {
             jogada[i] = player[i].getCartaJogada().getValor();
-            if (jogada[i] == maior && (tv != i % 2)) { //Vê se empatou, levando em consideração que só é empate se jogadores de times diferentes jogaram a mesma carta
+            if (jogada[i] == maior && (tv != i % 2)) { 
+                //Vê se empatou, levando em consideração que só é empate se jogadores de times diferentes jogaram a mesma carta
                 emp = true;
                 tv = (byte) (i % 2);
                 v1 = v;
@@ -136,17 +139,19 @@ public class Jogo {
         if (emp) {
             try {
                 empate(v, v1);
+                return false;
             } catch (RuleException ex) {
                 Logger.getLogger(Jogo.class.getName()).log(Level.SEVERE, null, ex);
             }
+            return false;
         } else {
             try {
                 vencedor(tv, v);
             } catch (RuleException ex) {
                 Logger.getLogger(Jogo.class.getName()).log(Level.SEVERE, null, ex);
             }
+            return true;
         }
-
     }
 
     /**
@@ -158,7 +163,6 @@ public class Jogo {
      * @throws RuleException
      */
     protected void vencedor(byte Tvencedor, byte vencedor) throws RuleException {
-
         ++rodTime[Tvencedor];
         setVencedor(player[vencedor]);
         if (rodTime[Tvencedor] == 2) {
