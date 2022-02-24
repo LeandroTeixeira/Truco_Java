@@ -46,7 +46,7 @@ public class Carta {
     /**
      * 
      * 
-     * @return Imagem da carta. Ex: Ás de Paus
+     * @return Imagem da carta. Ex: Ás de Pausa
      */
     public String getIMAGEM() {return IMAGEM;}
     

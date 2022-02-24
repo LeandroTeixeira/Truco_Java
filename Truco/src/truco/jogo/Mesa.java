@@ -18,7 +18,7 @@ import truco.DataBase.Perfil;
 
 /**
  *
- * @author PC
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 public class Mesa{ //Equivalente a um "juiz"
 /*

@@ -9,7 +9,7 @@ import truco.baralho.Carta;
 
 /**
  *
- * @author PC
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 public class Constantes {
     

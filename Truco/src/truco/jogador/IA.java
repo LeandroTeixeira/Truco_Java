@@ -8,7 +8,7 @@ package truco.jogador;
 import truco.baralho.Carta;
 /**
  *
- * @author PC
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 public class IA extends Jogador{
 /* - Dificuldade será determinada pelo número de variáveis que serão levadas

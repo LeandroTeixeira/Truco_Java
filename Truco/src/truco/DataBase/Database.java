@@ -7,7 +7,7 @@ package truco.DataBase;
 
 /**
  *
- * @author PC
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 public class Database {
     public void save(Object dado){

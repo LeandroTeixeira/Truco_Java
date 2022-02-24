@@ -7,7 +7,7 @@ package truco.acao;
 
 /**
  *
- * @author PC
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 public class Acao {
     

@@ -17,7 +17,7 @@ import truco.util.Constantes.TipoErro;
 
 /**
  *
- * @author PC
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 //Classe designada para determinar as consequências das ações tomadas na interface gráfica.
 public class Jogo {

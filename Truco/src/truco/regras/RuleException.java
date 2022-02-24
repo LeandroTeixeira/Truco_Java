@@ -10,7 +10,7 @@ import truco.util.Constantes.TipoErro;
 
 /**
  *
- * @author PC
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  * Classe que cuida das exceções das regras (por exemplo, uma mão ter mais do que 3 cartas)
  */
 public class RuleException extends Exception {

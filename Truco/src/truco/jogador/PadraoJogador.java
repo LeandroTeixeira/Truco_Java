@@ -7,7 +7,7 @@ package truco.jogador;
 
 /**
  *
- * @author Leandro Teixeira
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 public class PadraoJogador {
     

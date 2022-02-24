@@ -12,7 +12,7 @@ import truco.util.Constantes;
 
 /**
  *
- * @author PC
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 public class Main {
 

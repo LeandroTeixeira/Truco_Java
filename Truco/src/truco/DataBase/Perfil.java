@@ -7,7 +7,7 @@ package truco.DataBase;
 
 /**
  *
- * @author Leandro Teixeira
+ * @author Leandro Teixeira <https://leandroteixeira.github.io/home>
  */
 public class Perfil {
     
